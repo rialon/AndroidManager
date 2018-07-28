@@ -1,0 +1,28 @@
+﻿@model AndroidManager.WEB.Models.JobViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 class="text-primary">Edit Job</h2>
+<div class="card card-body bg-light col-lg-5 float-left">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Name, new { value = "Name", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control col-8", required = "required" })
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Description, new { value = "Description", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control col-8", required = "required" })
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Complexity, new { value = "Complexity", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Complexity, new { @class = "form-control col-8", @type = "number", required = "required" })
+        </div>
+        <button type="submit" class="btn btn-primary col-sm-4 text-lg-center">Edit</button>
+    }
+</div>
+

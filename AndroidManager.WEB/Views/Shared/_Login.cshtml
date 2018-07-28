@@ -1,0 +1,28 @@
+﻿
+
+<ul class="navbar fixed-top navbar-dark bg-dark justify-content-end" style="font-size:larger">
+    <li class="nav-item navbar-brand font-weight-bold text-light">
+        <a class="nav-link active" href="@Url.Action("Index", "Job")">Android Manager</a>
+    </li>
+    @if (User.Identity.IsAuthenticated) {
+        <li class="nav-item badge badge-light">
+            <span class="navbar-text text-dark font-weight-bold">@User.Identity.Name</span>
+        </li>
+        <li class="nav-item badge badge-dark border border-light font-weight-bold text-light">
+            <a class="nav-link disabled" href="@Url.Action("Logout", "Account")">Log Off</a>
+        </li>
+    } else {
+        <li class="nav-item badge badge-light">
+            <a class="nav-link text-dark font-weight-bold" href="@Url.Action("Login", "Account")">Log In</a>
+        </li>
+        <li class="nav-item badge badge-dark border border-light font-weight-bold text-light">
+            <a class="nav-link disabled" href="@Url.Action("Register", "Account")">Register</a>
+        </li>
+    }
+</ul>
+
+
+
+
+
+

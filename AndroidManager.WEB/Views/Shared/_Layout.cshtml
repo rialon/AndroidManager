@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/themes/base/base.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/passwordValidation.js"></script>
+</head>
+<body>
+    <div>
+        @Html.Partial("_Login")
+    </div>
+    <div class="mt-4">
+        <ul class="navbar navbar-light bg-light mb-0">
+            @{
+                if (User.Identity.IsAuthenticated && User.IsInRole("User")) {
+            <li class="nav-item font-weight-bold text-light mb-0">
+                <h3><span class="badge badge-secondary">Jobs for <a href="@Url.Action("Index", "Android")">Androids</a></span></h3>
+            </li>
+                }
+            }
+            @{
+                if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) {
+                    <li class="nav-item font-weight-bold text-light mb-0">
+                        <a class="btn btn-dark" href="@Url.Action("Index", "Admin")">All Tasks</a>
+                    </li>
+                }
+            }
+        </ul>
+        @RenderBody()
+    </div>
+</body>
+</html>

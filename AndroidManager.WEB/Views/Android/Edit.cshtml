@@ -1,0 +1,39 @@
+﻿@model AndroidManager.WEB.Models.AndroidViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 class="text-primary">Edit and Assign Android</h2>
+<div class="card card-body bg-light col-lg-5 float-left">
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Reliability)
+        @Html.HiddenFor(m => m.IsOk)
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Name, new { value = "Name", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control col-8", required = "required" })
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Avatar, new { value = "Avatar", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Avatar, new { @class = "form-control col-8" })
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Skills, new { value = "Skills", @class = "col-form-label col-3" })
+            @Html.TextBoxFor(m => m.Skills, new { @class = "form-control col-8" })
+        </div>
+        <div class="form-group row">
+            @Html.Label("Current Job", new { @class = "col-form-label col-3" })
+            @if (Model.IsOk) {
+                @Html.DropDownListFor(m => m.JobId, Model.JobsList, new { @class = "form-control" })
+            } else {
+                @Html.DropDownListFor(m => m.JobId, Model.JobsList, new { @class = "form-control", disabled = "disabled" })
+                <p>Android should be reclaimed</p>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary col-sm-4 text-lg-center">Edit</button>
+    }
+</div>
+
