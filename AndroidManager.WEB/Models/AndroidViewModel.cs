@@ -15,7 +15,6 @@ namespace AndroidManager.WEB.Models {
         [StringLength(24, MinimumLength = 5, ErrorMessage = "From 5 to 24 symbols are allowed for android name")]
         public string Name { get; set; }
 
-        public string Avatar { get; set; }
         public string Skills { get; set; }
 
         [Display(Name = "Ready")]
@@ -29,5 +28,9 @@ namespace AndroidManager.WEB.Models {
         public string JobName { get; set; }
 
         public IEnumerable<SelectListItem> JobsList { get; set; }
+
+        [Display(Name = "Avatar")]
+        public byte[] AvatarImageData { get; set; }
+        public string ImageMimeType { get; set; }
     }
 }

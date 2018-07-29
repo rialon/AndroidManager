@@ -39,14 +39,18 @@ namespace AndroidManager.WEB.Controllers {
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Create(AndroidViewModel android) {
+        public ActionResult Create(AndroidViewModel android, HttpPostedFileBase image = null) {
             if (ModelState.IsValid) {
                 var _androidDto = new AndroidDto {
                     Name = android.Name,
-                    Avatar = android.Avatar,
                     Skills = android.Skills,
                     JobId = android.JobId
                 };
+                if (image != null) {
+                    _androidDto.ImageMimeType = image.ContentType;
+                    _androidDto.AvatarImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(_androidDto.AvatarImageData, 0, image.ContentLength);
+                }
                 try {
                     this._androidService.Create(_androidDto);
                     return RedirectToAction("Index", "Android");
@@ -69,12 +73,13 @@ namespace AndroidManager.WEB.Controllers {
             var _adroid = new AndroidViewModel {
                 Id = _androidDto.Id,
                 Name = _androidDto.Name,
-                Avatar = _androidDto.Avatar,
                 Skills = _androidDto.Skills,
                 JobId = _androidDto.JobId,
                 IsOk = _androidDto.IsOk,
                 JobsList = new SelectList(this._jobService.GetAll(), "Id", "Name"),
-                Reliability = _androidDto.Reliability
+                Reliability = _androidDto.Reliability,
+                AvatarImageData = _androidDto.AvatarImageData,
+                ImageMimeType = _androidDto.ImageMimeType
             };
             return View(_adroid);
         }
@@ -82,17 +87,25 @@ namespace AndroidManager.WEB.Controllers {
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Edit(AndroidViewModel android) {
+        public ActionResult Edit(AndroidViewModel android, HttpPostedFileBase image = null) {
             if (ModelState.IsValid) {
                 var _androidDto = new AndroidDto {
                     Id = android.Id,
                     Name = android.Name,
-                    Avatar = android.Avatar,
                     Skills = android.Skills,
                     JobId = android.JobId,
                     IsOk = android.IsOk,
-                    Reliability = android.Reliability
+                    Reliability = android.Reliability,
                 };
+                if (image != null) {
+                    _androidDto.ImageMimeType = image.ContentType;
+                    _androidDto.AvatarImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(_androidDto.AvatarImageData, 0, image.ContentLength);
+                } else {
+                    var _image = this.GetImage(android.Id);
+                    _androidDto.ImageMimeType = _image.ContentType;
+                    _androidDto.AvatarImageData = _image.FileContents;
+                }
                 if (!_androidDto.IsOk) {
                     _androidDto.JobId = this._androidService.Get(_androidDto.Id).JobId;
                 }
@@ -114,13 +127,23 @@ namespace AndroidManager.WEB.Controllers {
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Remove(int adnroidId) {
+        public ActionResult Remove(int androidId) {
             try {
-                this._androidService.Remove(adnroidId);
+                this._androidService.Remove(androidId);
             } catch (ValidationException ex) {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
             return RedirectToAction("Index", "Android");
+        }
+
+        [Authorize]
+        public FileContentResult GetImage(int androidId) {
+            var _androidDto = this._androidService.Get(androidId);
+            if (_androidDto != null) {
+                return File(_androidDto.AvatarImageData, _androidDto.ImageMimeType);
+            } else {
+                return null;
+            }
         }
     }
 }

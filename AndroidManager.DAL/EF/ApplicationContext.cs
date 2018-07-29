@@ -14,6 +14,9 @@ namespace AndroidManager.DAL.EF {
         public ApplicationContext(string connectionString) : base(connectionString) {
         }
 
+        public ApplicationContext() : base() {
+        }
+
         public DbSet<Android> Androids { get; set; }
         public DbSet<Job> Jobs { get; set; }
     }

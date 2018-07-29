@@ -6,7 +6,7 @@
 
 <h2 class="text-primary">Create Android</h2>
 <div class="card card-body bg-light col-lg-5 float-left">
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Create", "Android", FormMethod.Post, new { enctype = "multipart/form-data" })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
         <div class="form-group row">
@@ -14,8 +14,8 @@
             @Html.TextBoxFor(m => m.Name, new { @class = "form-control col-8", required = "required" })
         </div>
         <div class="form-group row">
-            @Html.LabelFor(m => m.Avatar, new { value = "Avatar", @class = "col-form-label col-3" })
-            @Html.TextBoxFor(m => m.Avatar, new { @class = "form-control col-8" })
+            @Html.LabelFor(m => m.AvatarImageData, new { value = "Image for Avatar", @class = "col-form-label col-3" })
+            <input type="file" name="Image" class="form-control-file" id="imageUpload">
         </div>
         <div class="form-group row">
             @Html.LabelFor(m => m.Skills, new { value = "Skills", @class = "col-form-label col-3" })

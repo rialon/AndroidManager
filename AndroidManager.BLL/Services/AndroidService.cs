@@ -26,9 +26,10 @@ namespace AndroidManager.BLL.Services {
             }
             var _android = new Android {
                 Name = androidDto.Name,
-                Avatar = androidDto.Avatar,
                 Skills = androidDto.Skills,
-                JobId = androidDto.JobId
+                JobId = androidDto.JobId,
+                AvatarImageData = androidDto.AvatarImageData,
+                ImageMimeType = androidDto.ImageMimeType          
             };
             this._auow.Androids.Create(_android);
             this._auow.SaveAsync();
@@ -48,11 +49,12 @@ namespace AndroidManager.BLL.Services {
             var _android = new Android {
                 Id = androidDto.Id,
                 Name = androidDto.Name,
-                Avatar = androidDto.Avatar,
                 Skills = androidDto.Skills,
                 Reliability = androidDto.Reliability,
                 Status = androidDto.IsOk ? 1 : 0,
-                JobId = androidDto.JobId
+                JobId = androidDto.JobId,
+                AvatarImageData = androidDto.AvatarImageData,
+                ImageMimeType = androidDto.ImageMimeType
             };
             this._auow.Androids.Update(_android);
             this._auow.SaveAsync();
@@ -75,11 +77,12 @@ namespace AndroidManager.BLL.Services {
             var _androidDto = new AndroidDto {
                 Id = _android.Id,
                 Name = _android.Name,
-                Avatar = _android.Avatar,
                 IsOk = _android.Status != 0 ? true : false,
                 JobId = _android.JobId,
                 Skills = _android.Skills,
-                Reliability = _android.Reliability
+                Reliability = _android.Reliability,
+                AvatarImageData = _android.AvatarImageData,
+                ImageMimeType = _android.ImageMimeType
             };
             return _androidDto;
         }

@@ -29,11 +29,12 @@ namespace AndroidManager.DAL.Repositories {
         public void Update(Android item) {
             var _oldItem = this.Get(item.Id);
             _oldItem.Name = item.Name;
-            _oldItem.Avatar = item.Name;
             _oldItem.Skills = item.Skills;
             _oldItem.JobId = item.JobId;
             _oldItem.Reliability = item.Reliability;
             _oldItem.Status = item.Status;
+            _oldItem.AvatarImageData = item.AvatarImageData;
+            _oldItem.ImageMimeType = item.ImageMimeType;
             this._db.Entry(_oldItem).State = EntityState.Modified;
         }
 

@@ -13,4 +13,3 @@ C:\Users\Rialon\source\repos\AndroidManager\AndroidManager.DAL\obj\Debug\Android
 C:\Users\Rialon\source\repos\AndroidManager\AndroidManager.DAL\obj\Debug\AndroidManager.DAL.csproj.CopyComplete
 C:\Users\Rialon\source\repos\AndroidManager\AndroidManager.DAL\obj\Debug\AndroidManager.DAL.dll
 C:\Users\Rialon\source\repos\AndroidManager\AndroidManager.DAL\obj\Debug\AndroidManager.DAL.pdb
-C:\Users\Rialon\source\repos\AndroidManager\AndroidManager.DAL\obj\Debug\AndroidManager.DAL.csprojResolveAssemblyReference.cache
