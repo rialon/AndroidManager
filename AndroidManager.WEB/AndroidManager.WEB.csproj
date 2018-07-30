@@ -216,7 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\NinjectWEBServiceModulecs.cs" />
+    <Compile Include="Infrastructure\NinjectWEBServiceModule.cs" />
     <Compile Include="Models\AndroidViewModel.cs" />
     <Compile Include="Models\JobViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />

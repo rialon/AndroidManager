@@ -21,15 +21,12 @@ namespace AndroidManager.BLL.Services {
 
         public void Create(AndroidDto androidDto) {
             var _job = this._auow.Jobs.Get(androidDto.JobId);
-            if (_job == null) {
-                throw new ValidationException("Job is not found", "");
-            }
             var _android = new Android {
                 Name = androidDto.Name,
                 Skills = androidDto.Skills,
                 JobId = androidDto.JobId,
                 AvatarImageData = androidDto.AvatarImageData,
-                ImageMimeType = androidDto.ImageMimeType          
+                ImageMimeType = androidDto.ImageMimeType
             };
             this._auow.Androids.Create(_android);
             this._auow.SaveAsync();

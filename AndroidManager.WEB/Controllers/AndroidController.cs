@@ -24,7 +24,7 @@ namespace AndroidManager.WEB.Controllers {
         public ActionResult Index() {
             var _androidDtos = this._androidService.GetAll();
             var _mapper = new MapperConfiguration(cfg => cfg.CreateMap<AndroidDto, AndroidViewModel>()
-                                .ForMember("JobName", opt => opt.MapFrom(a => this._jobService.Get(a.JobId).Name))).CreateMapper();
+                                .ForMember("JobName", opt => opt.MapFrom(a => a.JobId == null ? null : this._jobService.Get(a.JobId).Name))).CreateMapper();
             var _androids = _mapper.Map<IEnumerable<AndroidDto>, List<AndroidViewModel>>(_androidDtos);
             return View(_androids);
         }
@@ -103,8 +103,8 @@ namespace AndroidManager.WEB.Controllers {
                     image.InputStream.Read(_androidDto.AvatarImageData, 0, image.ContentLength);
                 } else {
                     var _image = this.GetImage(android.Id);
-                    _androidDto.ImageMimeType = _image.ContentType;
-                    _androidDto.AvatarImageData = _image.FileContents;
+                    _androidDto.ImageMimeType = _image?.ContentType;
+                    _androidDto.AvatarImageData = _image?.FileContents;
                 }
                 if (!_androidDto.IsOk) {
                     _androidDto.JobId = this._androidService.Get(_androidDto.Id).JobId;
@@ -139,7 +139,7 @@ namespace AndroidManager.WEB.Controllers {
         [Authorize]
         public FileContentResult GetImage(int androidId) {
             var _androidDto = this._androidService.Get(androidId);
-            if (_androidDto != null) {
+            if (_androidDto != null && _androidDto.AvatarImageData != null) {
                 return File(_androidDto.AvatarImageData, _androidDto.ImageMimeType);
             } else {
                 return null;

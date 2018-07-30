@@ -21,7 +21,10 @@
             @if (Model.AvatarImageData == null || Model.AvatarImageData.Length == 0) {
                 @Html.Label("No old image exists", new { @class = "col-form-label col-3" })
             } else {
-                @Html.Label("Old image exists", new { @class = "col-form-label col-3" })
+                //Html.Label("Old image exists", new { @class = "col-form-label col-3" })
+                @Html.Label("Old image: ", new { @class = "col-form-label" })
+                <img class="img-thumbnail" style="width:75px; height:75px; margin:5px"
+                     src="@Url.Action("GetImage", "Android", new { androidId = Model.Id })" />
             }
             <input type="file" name="Image" class="form-control-file" id="imageUpload">
         </div>
@@ -32,7 +35,7 @@
         <div class="form-group row">
             @Html.Label("Current Job", new { @class = "col-form-label col-3" })
             @if (Model.IsOk) {
-                @Html.DropDownListFor(m => m.JobId, Model.JobsList, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.JobId, Model.JobsList, "No Job", new { @class = "form-control" })
             } else {
                 @Html.DropDownListFor(m => m.JobId, Model.JobsList, new { @class = "form-control", disabled = "disabled" })
                 <p>Android should be reclaimed</p>
