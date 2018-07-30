@@ -32,5 +32,7 @@ namespace AndroidManager.WEB.Models {
         [Display(Name = "Avatar")]
         public byte[] AvatarImageData { get; set; }
         public string ImageMimeType { get; set; }
+        [Display(Name = "Disable Avatar")]
+        public bool ImageDisabled { get; set; }
     }
 }

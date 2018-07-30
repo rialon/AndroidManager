@@ -101,7 +101,7 @@ namespace AndroidManager.WEB.Controllers {
                     _androidDto.ImageMimeType = image.ContentType;
                     _androidDto.AvatarImageData = new byte[image.ContentLength];
                     image.InputStream.Read(_androidDto.AvatarImageData, 0, image.ContentLength);
-                } else {
+                } else if (!android.ImageDisabled) {
                     var _image = this.GetImage(android.Id);
                     _androidDto.ImageMimeType = _image?.ContentType;
                     _androidDto.AvatarImageData = _image?.FileContents;
